@@ -302,16 +302,8 @@ $.fn.extend({
 							writeBuffer();
 							next = seekNext(p);
 
-							if(android){
-								//Path for CSP Violation on FireFox OS 1.1
-								var proxy = function() {
-									$.proxy($.fn.caret,input,next)();
-								};
+							input.caret(next);
 
-								setTimeout(proxy,0);
-							}else{
-								input.caret(next);
-							}
                             if(pos.begin <= lastRequiredNonMaskPos){
 		                         tryFireCompleted();
                              }
@@ -435,12 +427,7 @@ $.fn.extend({
                         tryFireCompleted();
 					}, 0);
 				});
-                if (chrome && android)
-                {
-                    input
-                        .off('input.mask')
-                        .on('input.mask', androidInputEvent);
-                }
+
 				checkVal(); //Perform initial check for existing values
 		});
 	}
